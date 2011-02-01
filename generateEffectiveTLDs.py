@@ -12,23 +12,13 @@ myprint = sys.stdout.write
 
 url = 'http://mxr.mozilla.org/mozilla-central/source/netwerk/dns/effective_tld_names.dat?raw=1'
 
-# Does $search start with $startstring?
-
-def startsWith(search, startstring):
-	return search.find(startstring) == 0
-
-# Does $search end with $endstring?
-
-def endsWith(search, endstring):
-	return search.find(endstring) == len(search) - len(endstring)
-
-
 def buildSubdomain(node, tldParts):
 
 	dom = tldParts.pop().strip()
 
 	isNotDomain = False
-	if startsWith(dom, "!"):
+
+	if dom.startswith("!"):
 		dom = dom[1:]
 		isNotDomain = True
 
@@ -75,16 +65,16 @@ myprint("# -*- coding: utf-8 -*-\n")
 
 for line in lines:
 
-	if licence and startsWith(line, "//"):
+	if licence and line.startswith("//"):
 
 		myprint("# " + line[2:] + "\n")
 
-		if startsWith(line, "// ***** END LICENSE BLOCK"):
+		if line.startswith("// ***** END LICENSE BLOCK"):
 			licence = False
 			myprint("\n")
 		continue;
 
-	if startsWith(line, "//") or line == '':
+	if line.startswith("//") or line == '':
 		continue;
 
 	# this must be a TLD
